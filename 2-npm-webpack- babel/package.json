@@ -1,0 +1,21 @@
+{
+  "name": "sig-tooling",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "bramkaashoek <bram.kaashoek@amis.nl>",
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack --mode development"
+  },
+  "dependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
+    "webpack": "^4.35.2",
+    "webpack-cli": "^3.3.5"
+  }
+}
