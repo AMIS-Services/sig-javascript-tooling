@@ -115,4 +115,96 @@ module.exports = {
 };
 ```
 
-If you run `yarn build` now, it should create a folder `dist/` containing a file named `main.js` with a bunch of javascript. This is mostly React code, but if you scroll down to the bottom you will see code which looks a lot like the code you wrote in step 1!
+If you run `yarn build` now, it should create a folder `dist/` containing a file named `main.js` with a bunch of javascript. This is mostly React code, but if you scroll down to the bottom you will see code which looks a lot like the code you wrote in step 1! Of course this is not very useful yet, since we did not include our HTML page. We will have to add an HTML loader to our webpack config.
+First add the packages html-loader and html-webpack-plugin to your project.
+Then update the webpack config:
+
+```javascript
+const HtmlWebPackPlugin = require("html-webpack-plugin");
+
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-react"]
+          }
+        }
+      },
+      {
+        test: /\.(html)$/,
+        use: {
+          loader: "html-loader",
+          options: {
+            attrs: [":data-src"]
+          }
+        }
+      }
+    ]
+  },
+  plugins: [
+    new HtmlWebPackPlugin({
+      template: "./src/index.html",
+      filename: "./index.html"
+    })
+  ]
+};
+```
+
+If you now run `yarn build` it will include the html file! If you take a look at the file, you will notice that it has automatically added a line which makes sure your JavaScript will be executed.
+
+```html
+  <script type="text/javascript" src="main.js"></script></body>
+```
+
+When you open up the file in your browser, you will see it works just as expected. With just a few simple steps, this is starting to look like an actual project!
+
+## TypeScript and hot reload
+
+These days, most people consider using TypeScript the default over plain JavaScript. While at times it might be annoying, its advantages outway its disadvantages and it helps immensely with finding bugs early.
+
+Switching a project over to typescript is rather easy. We need to do three things:
+
+- add a tsconfig.json
+- convert our javascript files to typescript
+- add a babel loader for typescript
+
+Go into `3-typescript-hotReload` and add
+the required packages with a `yarn add -D typescsript @types/react @types/react-dom ts-loader`.
+Then add a `tsconfig.json` file. Edit this file to contain the following snippet. You can find the meaning of the options in [the TypeScript docs](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html).
+
+```json
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "preserve"
+  },
+  "include": ["src"]
+}
+```
+
+Rename your two .js files to .tsx and edit `src/Restaurant.tsx` to have an interface for its props:
+
+```typescript
+interface IProps {
+  name: string;
+  city: string;
+  stars: number;
+}
+```
