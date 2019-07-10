@@ -10,7 +10,7 @@ In the first two script tags, we import React and ReactDOM, the two packages nee
 In the third script tag, we can write some javascript. Try adding something like
 
 ```javascript
-ReactDOM.render(React.createElement(React.createElement("h1", {}, "AMIENS")), document.getElementById("root"));
+ReactDOM.render(React.createElement(React.createElement('h1', {}, 'AMIENS')), document.getElementById('root'));
 ```
 
 and open the HTML page in your browser. You should see the header on your webpage. Now try adding something a bit more complex:
@@ -35,18 +35,18 @@ This will add a basic `package.json` to your project, with the defined dependenc
 We can now add a couple of JavaScript files. Add an `index.js` file to `src\` in which you can add a simple piece of JS:
 
 ```javascript
-import React from "react";
-import * as ReactDOM from "react-dom";
-import Restaurant from "./Restaurant";
+import React from 'react';
+import * as ReactDOM from 'react-dom';
+import Restaurant from './Restaurant';
 
 const App = () => {
   const restaurants = [
-    { name: "Nicos", city: "Utrecht", stars: 5 },
+    { name: 'Nicos', city: 'Utrecht', stars: 5 },
     {
-      name: "Athene",
-      city: "Amsterdam",
-      stars: 2
-    }
+      name: 'Athene',
+      city: 'Amsterdam',
+      stars: 2,
+    },
   ];
   return (
     <div>
@@ -57,13 +57,13 @@ const App = () => {
 };
 
 export default App;
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
 And to the file `Restaurant.js` add:
 
 ```javascript
-import React from "react";
+import React from 'react';
 
 const Restaurant = props => {
   return (
@@ -104,14 +104,14 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
-            presets: ["@babel/preset-react"]
-          }
-        }
-      }
-    ]
-  }
+            presets: ['@babel/preset-react'],
+          },
+        },
+      },
+    ],
+  },
 };
 ```
 
@@ -120,7 +120,7 @@ First add the packages html-loader and html-webpack-plugin to your project.
 Then update the webpack config:
 
 ```javascript
-const HtmlWebPackPlugin = require("html-webpack-plugin");
+const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   module: {
@@ -129,29 +129,29 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
-            presets: ["@babel/preset-react"]
-          }
-        }
+            presets: ['@babel/preset-react'],
+          },
+        },
       },
       {
         test: /\.(html)$/,
         use: {
-          loader: "html-loader",
+          loader: 'html-loader',
           options: {
-            attrs: [":data-src"]
-          }
-        }
-      }
-    ]
+            attrs: [':data-src'],
+          },
+        },
+      },
+    ],
   },
   plugins: [
     new HtmlWebPackPlugin({
-      template: "./src/index.html",
-      filename: "./index.html"
-    })
-  ]
+      template: './src/index.html',
+      filename: './index.html',
+    }),
+  ],
 };
 ```
 
@@ -208,3 +208,9 @@ interface IProps {
   stars: number;
 }
 ```
+
+## ESling, prettier, editorConfig
+
+## Babel: production build
+
+## Bonus: testing (jest)
