@@ -165,6 +165,8 @@ When you open up the file in your browser, you will see it works just as expecte
 
 ## TypeScript and hot reload
 
+### Typescript
+
 These days, most people consider using TypeScript the default over plain JavaScript. While at times it might be annoying, its advantages outway its disadvantages and it helps immensely with finding bugs early.
 
 Switching a project over to typescript is rather easy. We need to do three things:
@@ -193,7 +195,7 @@ Then add a `tsconfig.json` file. Edit this file to contain the following snippet
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "preserve"
+    "jsx": "react"
   },
   "include": ["src"]
 }
@@ -209,7 +211,41 @@ interface IProps {
 }
 ```
 
-## ESling, prettier, editorConfig
+And finally, update your `webpack.config.js`. Change the test for javascript to the following test:
+
+```javascript
+{
+  test: /\.(ts|tsx)$/,
+  exclude: /node_modules/,
+  use: {
+    loader: 'ts-loader',
+  },
+},
+```
+
+Now go and run `yarn build`. You should get an error saying webpack cannot find your entry module. This is because webpack does not yet know to look for `.ts` and `.tsx` files. This is easily fixed by adding the following to your webpack config:
+
+```javascript
+module.exports = {
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js'],
+  },
+};
+```
+
+If you run `yarn build` and open your website, everyting should be working again.
+
+### Hot Reload
+
+Manually building your website and then opening it is not very dev friendly. What we want is a hot reload, which opens your page for you and reloads it when you make a change to your files. Luckily, this is incredibly simple. All we need to do is is install a package with `yarn add -D webpack-dev-server` and add a script to our package.json:
+
+```JSON
+    "start": "webpack-dev-server --mode development --open --hot"
+```
+
+Now run `yarn start` and make some changes to your react app. When you save your changes, webpack will re-bundle your files for you and refresh your browser tab to show the changes.
+
+## ESlint, prettier, editorConfig
 
 ## Babel: production build
 
