@@ -1,1 +1,21 @@
+- What is tooling?
+- Types of tooling
+- History of tooling
+	- inline html javascript, css tot 2010-2012
+	- taskrunners (grunt/gulp) (Bower) (Browserify)
+	- scaffolding (yeoman)
+	- bundlers
+	- frameworks (bootstrap, foundation)
+	- frameworks ( react, angular)
 - React.createElement and its parameters
+
+- NPM --> package.json
+- webpack -->
+- Babel
+- Typescript hot reload
+- eslint, prettier, editorConfig
+- babel production build
+- testing
+- css
+
+
