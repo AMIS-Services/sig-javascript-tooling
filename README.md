@@ -1,6 +1,6 @@
 # SIG Javascript Tooling
 
-Welcome to the SIG about javascript tooling. Today we will be taking an in-depth look at the different tools we typically use while writing javascript code. We will begin with a simple [React](https://reactjs.org/) project written in an HTML file and adding [npm](https://www.npmjs.com/), [webpack](https://webpack.js.org/), [typescript](https://www.typescriptlang.org/), [eslint](https://eslint.org/), [prettier](https://github.com/prettier/prettier), [git hooks](https://githooks.com/), [babel](https://babeljs.io/) and [jest](https://jestjs.io/).
+Welcome to the SIG about javascript tooling. Today we will be taking an in-depth look at the different tools we typically use while writing javascript code. The focus of todays lab is to set up a complete project using modern, best practice tooling. We will begin with a simple [React](https://reactjs.org/) project written in an HTML file and adding [npm](https://www.npmjs.com/), [webpack](https://webpack.js.org/), [typescript](https://www.typescriptlang.org/), [eslint](https://eslint.org/), [prettier](https://github.com/prettier/prettier), [git hooks](https://githooks.com/), [babel](https://babeljs.io/) and [jest](https://jestjs.io/).
 
 ## First steps
 
