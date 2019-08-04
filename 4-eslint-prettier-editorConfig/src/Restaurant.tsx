@@ -3,11 +3,10 @@ import React from "react";
 interface IProps {
   name: string;
   city: string;
-  stars: any;
+  stars: number;
 }
 
 const Restaurant = (props: IProps) => {
-  console.log("Hello");
   return (
     <div>
       <h2>{props.name}</h2>

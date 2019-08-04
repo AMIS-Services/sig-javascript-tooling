@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack --mode development",
-    "start": "webpack-dev-server --mode development --open --hot"
+    "start": "webpack-dev-server --mode development --open --hot",
+    "prettier": "prettier --config ./tslint.json --write \"./src/*.tsx\""
   },
   "dependencies": {
     "react": "^16.8.6",
@@ -20,13 +21,22 @@
     "babel-loader": "^8.0.6",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
+    "prettier": "^1.18.2",
     "ts-loader": "^6.0.4",
     "tslint": "^5.18.0",
+    "tslint-config-prettier": "^1.18.0",
     "tslint-loader": "^3.5.4",
+    "tslint-plugin-prettier": "^2.0.1",
     "tslint-react": "^4.0.0",
     "typescript": "^3.5.2",
     "webpack": "^4.35.2",
     "webpack-cli": "^3.3.5",
     "webpack-dev-server": "^3.7.2"
+  },
+  "prettier": {
+    "trailingComma": "es5",
+    "tabWidth": 4,
+    "semi": false,
+    "singleQuote": false
   }
 }
