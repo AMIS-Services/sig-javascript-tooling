@@ -281,7 +281,7 @@ In the root of our project add a file called `tslint.json` and add the following
 
 ````json
   {
-    rules: {
+    "rules": {
       "no-console": true
   }
 ````
@@ -326,6 +326,8 @@ We've set a simple rule which says "No console functions in the typescript". Thi
 
 ````
 
+To run tslint separately add in your `package.json` inside `scripts` the following: `tslint --config ./tslint.json \"./src/*.{ts,tsx}\"`. And run in your command line `yarn tslint`.
+
 ### Prettier
 
 TSLint can take care of your code formatting. There are dependencies which do it for you. Prettier is one of them. [Prettier](https://prettier.io/docs/en/index.html) is an oppionated, but extensible library which lets you format your code in a way you and your teammates all agree to. But as you see in the tslint.json file, there are a lot of rules which also check for format inconsistencies. Those rules should be taken care of by Prettier, because Prettier also does your formatting based on the settings you've set.
@@ -334,7 +336,7 @@ To let Prettier taken care of your formatting we need to install some dependecie
 
 Prettier is the dependency to take care of your formatting. tslint-plugin-prettier lets Prettier run with TSLint. tslint-config-prettier disables all TSLint rules which are conflicting with the Prettier options. Here is a [full list of rules](https://unpkg.com/tslint-config-prettier@1.18.0/lib/index.json) which are getting disabled. 
 
-In your `tslint.json` add tslint-plugin-prettier and tslint-config-prettier to the extends section. tslint-config-prettier must be placed last so it will disable al the rules which conflict with prettier. Under `rules` add prettier and set it to true. This will check your files based on the default settings of prettier. If you want to have you own options replace true by an array with in the first position true, and in the second position an object with some options you've set. Check [here](https://prettier.io/docs/en/options.html) for some options. The tslint.json will look something like this.
+In your `tslint.json` add tslint-plugin-prettier and tslint-config-prettier to the extends section. tslint-config-prettier must be placed last so it will disable al the rules which conflict with prettier. Under `rules` add prettier and set it to true. This will check your files based on the default settings of prettier. If you want to have you own options replace true by an array with in the first position true, and in the second position an object with some options you've set. Check [here](https://prettier.io/docs/en/options.html) for some options. The `tslint.json` will look something like this. NOTE!: I've delete some rules like singleQuote, no-consecutive-blank-lines, etc. This is because the tslint-config-prettier disables all coflicting formatting rules. I replaced those rules with the prettier-like styles.
 
 ````json
 {
@@ -351,7 +353,7 @@ In your `tslint.json` add tslint-plugin-prettier and tslint-config-prettier to t
       {
           "trailingComma": "es5",
           "tabWidth": 2,
-          "printWidth": 200,
+          "printWidth" 200,
           "semi": false,
           "singleQuote": true
       }
@@ -365,8 +367,6 @@ In your `tslint.json` add tslint-plugin-prettier and tslint-config-prettier to t
     "member-ordering": [false],
     "variable-name": [false],
     "max-classes-per-file": false,
-    "no-consecutive-blank-lines": [true, 2]
-  },
   },
   "rulesDirectory": []
 }
@@ -392,6 +392,60 @@ Module Warning (from ./node_modules/tslint-loader/index.js):
 ````
 This means you have successfully add prettier to your project, but wait how do we say to prettier it should also format your files based on your options. Add in your `package.json` a new command called prettier and set it to "prettier": "prettier --config ./package.json --write \"./src/*.tsx\"". And add to a new prop called object and use the same configuration set in your tslint.json. This will run Prettier with the configurations in package.json and it will check and format all files in your src folder which have the .tsx extension. NOTE! We had to add the same configuration to our package.json. That's because prettier can't read your tslint.json file.
 
+### EditorConfig
+
+We have linting, we have formatting, but wait! Each developer has its own favorite IDE or editor and each editor has a different format style. Which will format your code as you type. This is where an EditorConfig comes in. An EditorConfig helps maintain consistent codig for multiple developers working on the same project across various editors and IDEs. The EditorConfig consists of a set of codings styles which helps a editor to adhere to the defined styles.
+
+The editorConfig can look like the following:
+
+````
+  # EditorConfig is awesome: https://EditorConfig.org
+
+  # top-most EditorConfig file
+  root = true
+
+  # Unix-style newlines with a newline ending every file
+  [*]
+  end_of_line = lf
+  insert_final_newline = true
+
+  # Matches multiple files with brace expansion notation
+  # Set default charset
+  [*.{js,py}]
+  charset = utf-8
+
+  # 4 space indentation
+  [*.py]
+  indent_style = space
+  indent_size = 4
+
+  # Tab indentation (no size specified)
+  [Makefile]
+  indent_style = tab
+
+  # Indentation override for all JS under lib directory
+  [lib/**.js]
+  indent_style = space
+  indent_size = 2
+
+  # Matches the exact files either package.json or .travis.yml
+  [{package.json,.travis.yml}]
+  indent_style = space
+  indent_size = 2
+````
+
+As you see you can set configurations per set of files you've specified. You can specify which files need a specific style by using the square brackets notation. Each new line with a square bracket notation identifies as a new set of rules only to apply to those files targeted that notation. It not necessary if you want to apply it to all files, but with different languages and precedents there will be settings only applicable to a specific set of files.
+
+````
+[*.js] # This will target all javascript files.
+````
+
+[Here](https://editorconfig-specification.readthedocs.io/en/latest) you can find a complete list of properties supported by the editorConfig.
+
+To use the editorConfig you must install a plugin for your editor. For Visual Studio Code you'll need `EditorConfig for VS Code`.
+
+In the root of your project create a file called `.editorconfig`. The first line of this file should always be `root=true`. This will make sure only settings inside this editorconfig file are used. Below this line add a square bracket notation which will target all files. (Check [here](https://editorconfig-specification.readthedocs.io/en/latest) for the syntax)
+Below this line type end_of_line=crlf. This setting says that all line-breaks will be carriage-return (CR) followed by a line-feed (LF). There are more, but I encourage you to try those out for yourself.
 
 ## Babel: production build
 

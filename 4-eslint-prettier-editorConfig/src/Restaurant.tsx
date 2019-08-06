@@ -3,7 +3,7 @@ import React from 'react'
 interface IProps {
   name: string
   city: string
-  stars: any
+  stars: number
 }
 
 const Restaurant = (props: IProps) => {
