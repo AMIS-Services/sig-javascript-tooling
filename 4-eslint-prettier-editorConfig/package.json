@@ -7,7 +7,7 @@
   "scripts": {
     "build": "webpack --mode development",
     "start": "webpack-dev-server --mode development --open --hot",
-    "tslint": "tslint --config \"./tslint.json\" \"./src/*.{ts,tsx}\"",
+    "tslint": "tslint --config ./tslint.json \"./src/*.{ts,tsx}\"",
     "prettier": "prettier --config ./package.json --write \"./src/*.{ts,tsx}\""
   },
   "dependencies": {
@@ -35,6 +35,12 @@
     "webpack-cli": "^3.3.5",
     "webpack-dev-server": "^3.7.2"
   },
+  "prettier": {
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true
+  },
   "husky": {
     "hooks": {
       "pre-commit": [
@@ -42,11 +48,5 @@
         "prettier"
       ]
     }
-  },
-  "prettier": {
-    "trailingComma": "es5",
-    "tabWidth": 2,
-    "semi": false,
-    "singleQuote": true
   }
 }

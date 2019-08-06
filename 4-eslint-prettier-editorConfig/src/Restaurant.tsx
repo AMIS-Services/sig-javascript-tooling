@@ -1,9 +1,9 @@
 import React from 'react'
 
 interface IProps {
-  name: string
-  city: string
-  stars: number
+  name: string;
+  city: string;
+  stars: number;
 }
 
 const Restaurant = (props: IProps) => {
