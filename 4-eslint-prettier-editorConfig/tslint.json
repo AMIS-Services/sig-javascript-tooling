@@ -12,6 +12,7 @@
             {
                 "trailingComma": "es5",
                 "tabWidth": 2,
+                "printWidth": 200,
                 "semi": false,
                 "singleQuote": true
             }
@@ -36,8 +37,7 @@
         "variable-name": [
             false
         ],
-        "max-classes-per-file": false,
-        "no-any": true
+        "max-classes-per-file": false
     },
     "rulesDirectory": []
 }
