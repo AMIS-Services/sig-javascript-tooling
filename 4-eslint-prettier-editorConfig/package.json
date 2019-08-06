@@ -7,7 +7,8 @@
   "scripts": {
     "build": "webpack --mode development",
     "start": "webpack-dev-server --mode development --open --hot",
-    "prettier": "prettier --config ./tslint.json --write \"./src/*.tsx\""
+    "tslint": "tslint --config \"./tslint.json\" \"./src/*.{ts,tsx}\"",
+    "prettier": "prettier --config ./package.json --write \"./src/*.{ts,tsx}\""
   },
   "dependencies": {
     "react": "^16.8.6",
@@ -35,8 +36,8 @@
   },
   "prettier": {
     "trailingComma": "es5",
-    "tabWidth": 4,
+    "tabWidth": 2,
     "semi": false,
-    "singleQuote": false
+    "singleQuote": true
   }
 }

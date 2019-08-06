@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react'
 
 interface IProps {
-  name: string;
-  city: string;
-  stars: number;
+  name: string
+  city: string
+  stars: any
 }
 
 const Restaurant = (props: IProps) => {
@@ -13,7 +13,7 @@ const Restaurant = (props: IProps) => {
       <h3>{props.city}</h3>
       <h4>{props.stars}</h4>
     </div>
-  );
-};
+  )
+}
 
-export default Restaurant;
+export default Restaurant

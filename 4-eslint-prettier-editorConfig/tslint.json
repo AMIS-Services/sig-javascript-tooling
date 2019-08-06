@@ -11,15 +11,9 @@
             true,
             {
                 "trailingComma": "es5",
-                "tabWidth": 4,
+                "tabWidth": 2,
                 "semi": false,
-                "singleQuote": false
-            }
-        ],
-        "max-line-length": [
-            true,
-            {
-                "limit": 200
+                "singleQuote": true
             }
         ],
         "radix": [
@@ -43,10 +37,7 @@
             false
         ],
         "max-classes-per-file": false,
-        "no-consecutive-blank-lines": [
-            true,
-            2
-        ]
+        "no-any": true
     },
     "rulesDirectory": []
 }
