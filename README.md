@@ -249,9 +249,9 @@ Now run `yarn start` and make some changes to your react app. When you save your
 
 ### TSLint
 
-Most of the time we write code in collaboration. As a team we would like our can as readable, maitainable and free of functional errors as it can be. To keep it that we use a linter. A linter is an utility tool that analyze your code and emits warning or errors based on the rules you've set.
+Most of the time we write code in collaboration. As a team we would like our code as readable, maintainable and free of functional errors as it can be. To keep it that way we use a linter. A linter is an utility tool that analyzes your code and emits warnings or errors based on the rules you've set.
 
-To setup linting for typescript we need to install two packages: `tslint` and `tslint-loader`. Use `-D` to install as devDependencies. To make webpack check our typescript code we need to add to our `webpack.config.js` the following settings:
+To setup linting for typescript we need to install two packages: `tslint` and `tslint-loader`. Use `-D` to install them as devDependencies. To make webpack check our typescript code we need to add to our `webpack.config.js` the following settings:
 
 ````javascript
   {
@@ -277,7 +277,7 @@ To setup linting for typescript we need to install two packages: `tslint` and `t
   // other configuration
 ````
 
-In the root of our project add a file called `tslint.json` and add the following:
+In the root of our project create a file called `tslint.json` and add the following:
 
 ````json
   {
@@ -286,15 +286,17 @@ In the root of our project add a file called `tslint.json` and add the following
   }
 ````
 
-Add a console in a typescript file in the `src` folder. Run `yarn start` again to apply the settings you've made. 
+Add a console in a typescript file in the `src` folder. Run `yarn start` to apply the settings you've made. 
 
 In your terminal an error should appear which says the following:
 ````bash
   ERROR in ./src/[fileName]
   Module Error (from ./node_modules/tslint-loader/index.js):
-  ERROR: (no-console) C:/Users/XT_KHENNIS/Documents/Projects/Own/4-Eslint-Prettier-EditorConfig_EsLint/src/[fileName].tsx: Calls to 'console.log' are not allowed.
+  ERROR: (no-console) Path/To/File/4-Eslint-Prettier-EditorConfig/src/[fileName].tsx: 
+      Calls to 'console.log' are not allowed.
 ````
-We've set a simple rule which says "No console functions in the typescript". This is just one of many. On the [TSLint](https://palantir.github.io/tslint/rules/) website you'll find all the rule you can set. Here below is a piece of configuration which contains a set of basic linting rules you can set for your typescript code. Read it and use it try to understand what different kind of rules enforce. Linting rules are something personal and each person prefer a different set. Try different rules in your project and find which one you like and which you don't 
+
+We've set a simple rule which says that we can't have console.logs or another console function in our code. This is just one of many. On the [TSLint](https://palantir.github.io/tslint/rules/) website you'll find all the rules you can set. Here below is a piece of configuration which contains a set of basic linting rules you can set for your typescript code. Read it, use it, try to understand what different kind of rules enforce. Linting rules are something personal and each individual prefers a different set. Try different rules in your project and find which one you like and which you don't. Some other suggestions to try are: no-any, triple-equals, no-duplicate-imports.
 
 ````json
 {
@@ -326,17 +328,21 @@ We've set a simple rule which says "No console functions in the typescript". Thi
 
 ````
 
-To run tslint separately add in your `package.json` inside `scripts` the following: `tslint --config ./tslint.json \"./src/*.{ts,tsx}\"`. And run in your command line `yarn tslint`.
+To run tslint separately add in your `package.json` a command called `tslint` and set it to  `tslint --config ./tslint.json \"./src/*.{ts,tsx}\"`. In the command line type `yarn tslint`. Any warning or error will be printed out the console or terminal.
 
 ### Prettier
 
-TSLint can take care of your code formatting. There are dependencies which do it for you. Prettier is one of them. [Prettier](https://prettier.io/docs/en/index.html) is an oppionated, but extensible library which lets you format your code in a way you and your teammates all agree to. But as you see in the tslint.json file, there are a lot of rules which also check for format inconsistencies. Those rules should be taken care of by Prettier, because Prettier also does your formatting based on the settings you've set.
+TSLint also takes care of your code formatting, but one thing that is lacks is formatting your code. It complains about it, but that's it. To let your IDE also format your code we need a dependency called Prettier. [Prettier](https://prettier.io/docs/en/index.html) is an oppionated, but extensible library which lets you format your code. You can configure Prettier to format your code based on some options you've set. But take a look in the tslint.json file. There are a lot of rules which also check for format inconsistencies. Those rules should be taken care of by Prettier.
 
 To let Prettier taken care of your formatting we need to install some dependecies. In you command line type `yarn add -D prettier tslint-plugin-prettier tslint-config-prettier`.
 
-Prettier is the dependency to take care of your formatting. tslint-plugin-prettier lets Prettier run with TSLint. tslint-config-prettier disables all TSLint rules which are conflicting with the Prettier options. Here is a [full list of rules](https://unpkg.com/tslint-config-prettier@1.18.0/lib/index.json) which are getting disabled. 
+* Prettier is the dependency to take care of your formatting. 
+* tslint-plugin-prettier lets Prettier run with TSLint. 
+* tslint-config-prettier disables all TSLint rules which are conflicting with the Prettier options. 
 
-In your `tslint.json` add tslint-plugin-prettier and tslint-config-prettier to the extends section. tslint-config-prettier must be placed last so it will disable al the rules which conflict with prettier. Under `rules` add prettier and set it to true. This will check your files based on the default settings of prettier. If you want to have you own options replace true by an array with in the first position true, and in the second position an object with some options you've set. Check [here](https://prettier.io/docs/en/options.html) for some options. The `tslint.json` will look something like this. NOTE!: I've delete some rules like singleQuote, no-consecutive-blank-lines, etc. This is because the tslint-config-prettier disables all coflicting formatting rules. I replaced those rules with the prettier-like styles.
+Here is a [full list of rules](https://unpkg.com/tslint-config-prettier@1.18.0/lib/index.json) which are getting disabled. 
+
+In your `tslint.json` add `tslint-plugin-prettier` and `tslint-config-prettier` to the extends section. `tslint-config-prettier` must be placed last so it will disable al the rules which conflict with prettier. Under `rules` add the option prettier and set it to true. This will check your files based on the default settings of prettier. If you want to have you own options replace true by an array with in the first position true, and in the second position an object with some options you've set. Check [here](https://prettier.io/docs/en/options.html) for some options. The `tslint.json` will look something like this:
 
 ````json
 {
@@ -373,6 +379,8 @@ In your `tslint.json` add tslint-plugin-prettier and tslint-config-prettier to t
 
 ````
 
+ NOTE!: There are some rules like singleQuote, no-consecutive-blank-lines, etc, which have been deleted. This is because the tslint-config-prettier disables all coflicting formatting rules. I replaced those rules with the Prettier equavalent.
+
 Restart webpack. You should see in your console some warnings or errors like this:
 
 ````bash
@@ -390,11 +398,11 @@ Module Warning (from ./node_modules/tslint-loader/index.js):
 [15, 5]: Insert `····`
 [16, 1]: Insert `··`
 ````
-This means you have successfully add prettier to your project, but wait how do we say to prettier it should also format your files based on your options. Add in your `package.json` a new command called prettier and set it to "prettier": "prettier --config ./package.json --write \"./src/*.tsx\"". And add to a new prop called object and use the same configuration set in your tslint.json. This will run Prettier with the configurations in package.json and it will check and format all files in your src folder which have the .tsx extension. NOTE! We had to add the same configuration to our package.json. That's because prettier can't read your tslint.json file.
+This means you have successfully add Prettier to your project, but wait how do we say to prettier it should also format your files based on your options. Add in your `package.json` a new command called `prettier` and set it to `"prettier --config ./package.json --write \"./src/*.tsx\""`. And add a property called `prettier`. This is an object and set it same the same configuration set under prettier in your tslint.json. You need just the options not the whole array!. This will run Prettier with the configurations in package.json and it will check and format all files in your src folder which have the .tsx or .ts extension. NOTE! We had to add the configuration to our package.json, because Prettier can't read your tslint.json file.
 
 ### EditorConfig
 
-We have linting, we have formatting, but wait! Each developer has its own favorite IDE or editor and each editor has a different format style. Which will format your code as you type. This is where an EditorConfig comes in. An EditorConfig helps maintain consistent codig for multiple developers working on the same project across various editors and IDEs. The EditorConfig consists of a set of codings styles which helps a editor to adhere to the defined styles.
+We have linting, we have formatting, but wait! Each developer has its own favorite IDE or editor and each editor has a different format style. Which will format your code as you type or save. This is where an EditorConfig comes in. An EditorConfig helps maintain consistent codig for multiple developers working on the same project across various editors and IDEs. The EditorConfig consists of a set of codings styles which helps a editor to adhere to the defined styles.
 
 The editorConfig can look like the following:
 
