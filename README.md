@@ -359,7 +359,7 @@ In your `tslint.json` add `tslint-plugin-prettier` and `tslint-config-prettier` 
       {
           "trailingComma": "es5",
           "tabWidth": 2,
-          "printWidth" 200,
+          "printWidth": 200,
           "semi": false,
           "singleQuote": true
       }
