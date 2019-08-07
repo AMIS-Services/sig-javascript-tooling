@@ -472,6 +472,11 @@ Pre-commit is a dependency that lets you easily set up the commands you want to 
 
 NOTE!: At this point when you try to commit your changes it is possible that the commit will fail because of the pre-commit. This is because your `package.json` and the `.git` folder need to be on the same level. This is something to think about when working with git hooks in your package.json.
 
-## Babel: production build 
+## Babel: production build
+During development we use a lot tools like sourcemaps, hot-reloading. These tools aren't necessary in production. In production we need to think more about file size, optimization of files to improve load times. Because of this we need to configure webpack for those different stages.
+
+To let webpack know we need a production ready distribution we need to update a command in our package.json. We'll add `build:production` command and set it to the following: `"webpack --mode production"`. When we run `yarn build:production` webpack is going to look for all the necessary packages needed in production and minify, uglify and optimize it. This will result in a much smaller bundle compare to the bundle created with `yarn build`.
+
+We use the default of setting to let you know what the production build is and what it produces. On the [webpack](https://webpack.js.org/guides/production/) website you'll find a little more information and a more verbose version of building a production ready applcation. Read this document and try to implement it.
 
 ## Bonus: testing (jest)
