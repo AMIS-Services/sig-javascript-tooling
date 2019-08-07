@@ -480,3 +480,32 @@ To let webpack know we need a production ready distribution we need to update a 
 We use the default of setting to let you know what the production build is and what it produces. On the [webpack](https://webpack.js.org/guides/production/) website you'll find a little more information and a more verbose version of building a production ready applcation. Read this document and try to implement it.
 
 ## Bonus: testing (jest)
+As your applications grows it's getting harder and harder to regulary test if everything still works as it should. There are different kind of testing. You have regression tests, unit tests, E2E testing and many more. Right we just focusing on adding a testing utility to your project and add a simple test. For a more advanced setup to test even React via Babel or webpack I will refer to the docs of the testing tool. For this SIG we use a tool called Jest. Jest is maintained and used by Facebook as their main testing utility tool. 
+
+Install Jest by typing `yarn add -D jest` in your command line. 
+
+In your `package.json` you add a command called `test` and set it to `jest`. Jest will then looking for all files which have the extension `.test.js` and execute the tests in it.
+
+In your root folder create two files `sum.js` and `sum.test.js`. 
+
+To `sum.js` add this piece of code
+
+````javascript
+function sum(a, b) {
+    return a + b;
+}
+
+module.exports = sum;
+````
+
+And to sum.test.js:
+
+````javascript
+const sum = require('./src/sum');
+
+test("adds  1 + 2 equals to 3", () => {
+    expect(sum(1, 2)).toBe(3);
+});
+````
+
+Run `yarn test` and you should see your test successfully pass. Of course this is just a simple example. To setup Jest with React is much harder especially with also typescript added to your project. You can read the [docs](https://jestjs.io/docs/en/getting-started) for more information on how to implement it.
