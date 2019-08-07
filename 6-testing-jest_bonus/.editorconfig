@@ -1,0 +1,5 @@
+# Lets editors know this is the root editorConfig
+root=true
+
+[*]
+end_of_line=CRLF
