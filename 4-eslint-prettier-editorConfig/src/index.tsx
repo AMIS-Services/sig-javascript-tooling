@@ -1,6 +1,6 @@
+import React from 'react'
 import * as ReactDOM from 'react-dom'
 import Restaurant from './Restaurant'
-import React from 'react'
 
 const App = () => {
   const restaurants = [
