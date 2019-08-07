@@ -43,7 +43,6 @@
     "singleQuote": true
   },
   "pre-commit": [
-    "tslint",
     "prettier"
   ]
 }
