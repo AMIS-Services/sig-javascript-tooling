@@ -24,6 +24,7 @@
     "html-webpack-plugin": "^3.2.0",
     "husky": "^3.0.2",
     "prettier": "^1.18.2",
+    "pre-commit": "1.2.2",
     "ts-loader": "^6.0.4",
     "tslint": "^5.18.0",
     "tslint-config-prettier": "^1.18.0",
@@ -41,12 +42,8 @@
     "semi": false,
     "singleQuote": true
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": [
-        "tslint",
-        "prettier"
-      ]
-    }
-  }
+  "pre-commit": [
+    "tslint",
+    "prettier"
+  ]
 }
