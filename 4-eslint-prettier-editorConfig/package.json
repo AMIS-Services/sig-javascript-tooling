@@ -43,10 +43,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": [
-        "tslint",
-        "prettier"
-      ]
+      "pre-commit": "tslint && prettier"
     }
   }
 }
