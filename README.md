@@ -455,6 +455,23 @@ To use the editorConfig you must install a plugin for your editor. For Visual St
 In the root of your project create a file called `.editorconfig`. The first line of this file should always be `root=true`. This will make sure only settings inside this editorconfig file are used. Below this line add a square bracket notation which will target all files. (Check [here](https://editorconfig-specification.readthedocs.io/en/latest) for the syntax)
 Below this line type end_of_line=crlf. This setting says that all line-breaks will be carriage-return (CR) followed by a line-feed (LF). There are more, but I encourage you to try those out for yourself.
 
-## Babel: production build
+### PreCommit
+Individually running commands like tslint or prettier isn't efficient especially when you have to do it before each commit. To make it easier we going to use something called a git hook. Git hooks are operations which are fired when a certain actions happens. This can be commit your code, push your code or merge your code and much more. You can find more information on the [git website](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks). In this project we're going to use a hook called `pre-commit`. This is the first hook that fired up right before the moment you commit your code.
+
+To use it type `yarn add -D pre-commit`.
+
+In your package.json add the following
+
+````json
+"pre-commit": [
+  "prettier"
+]
+````
+
+Pre-commit is a dependency that lets you easily set up the commands you want to execute during the pre-commit. The pre-commit property is an array with one command `prettier`. The commands we created earlier.
+
+NOTE!: At this point when you try to commit your changes it is possible that the commit will fail because of the pre-commit. This is because your `package.json` and the `.git` folder need to be on the same level. This is something to think about when working with git hooks in your package.json.
+
+## Babel: production build 
 
 ## Bonus: testing (jest)
