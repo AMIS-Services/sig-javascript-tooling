@@ -6,7 +6,6 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack --mode development",
-    "build:production": "webpack --mode production",
     "start": "webpack-dev-server --mode development --open --hot",
     "tslint": "tslint --config ./tslint.json \"./src/*.{ts,tsx}\"",
     "prettier": "prettier --config ./package.json --write \"./src/*.{ts,tsx}\""
