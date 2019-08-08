@@ -455,6 +455,57 @@ To use the editorConfig you must install a plugin for your editor. For Visual St
 In the root of your project create a file called `.editorconfig`. The first line of this file should always be `root=true`. This will make sure only settings inside this editorconfig file are used. Below this line add a square bracket notation which will target all files. (Check [here](https://editorconfig-specification.readthedocs.io/en/latest) for the syntax)
 Below this line type end_of_line=crlf. This setting says that all line-breaks will be carriage-return (CR) followed by a line-feed (LF). There are more, but I encourage you to try those out for yourself.
 
+### PreCommit
+Individually running commands like tslint or prettier isn't efficient especially when you have to do it before each commit. To make it easier we going to use something called a git hook. Git hooks are operations which are fired when a certain actions happens. This can be commit your code, push your code or merge your code and much more. You can find more information on the [git website](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks). In this project we're going to use a hook called `pre-commit`. This is the first hook that fired up right before the moment you commit your code.
+
+To use it type `yarn add -D pre-commit`.
+
+In your package.json add the following
+
+````json
+"pre-commit": [
+  "prettier"
+]
+````
+
+Pre-commit is a dependency that lets you easily set up the commands you want to execute during the pre-commit. The pre-commit property is an array with one command `prettier`. The commands we created earlier.
+
+NOTE!: At this point when you try to commit your changes it is possible that the commit will fail because of the pre-commit. This is because your `package.json` and the `.git` folder need to be on the same level. This is something to think about when working with git hooks in your package.json.
+
 ## Babel: production build
+During development we use a lot tools like sourcemaps, hot-reloading. These tools aren't necessary in production. In production we need to think more about file size, optimization of files to improve load times. Because of this we need to configure webpack for those different stages.
+
+To let webpack know we need a production ready distribution we need to update a command in our package.json. We'll add `build:production` command and set it to the following: `"webpack --mode production"`. When we run `yarn build:production` webpack is going to look for all the necessary packages needed in production and minify, uglify and optimize it. This will result in a much smaller bundle compare to the bundle created with `yarn build`.
+
+We use the default of setting to let you know what the production build is and what it produces. On the [webpack](https://webpack.js.org/guides/production/) website you'll find a little more information and a more verbose version of building a production ready applcation. Read this document and try to implement it.
 
 ## Bonus: testing (jest)
+As your applications grows it's getting harder and harder to regulary test if everything still works as it should. There are different kind of testing. You have regression tests, unit tests, E2E testing and many more. Right we just focusing on adding a testing utility to your project and add a simple test. For a more advanced setup to test even React via Babel or webpack I will refer to the docs of the testing tool. For this SIG we use a tool called Jest. Jest is maintained and used by Facebook as their main testing utility tool. 
+
+Install Jest by typing `yarn add -D jest` in your command line. 
+
+In your `package.json` you add a command called `test` and set it to `jest`. Jest will then looking for all files which have the extension `.test.js` and execute the tests in it.
+
+In your root folder create two files `sum.js` and `sum.test.js`. 
+
+To `sum.js` add this piece of code
+
+````javascript
+function sum(a, b) {
+    return a + b;
+}
+
+module.exports = sum;
+````
+
+And to sum.test.js:
+
+````javascript
+const sum = require('./src/sum');
+
+test("adds  1 + 2 equals to 3", () => {
+    expect(sum(1, 2)).toBe(3);
+});
+````
+
+Run `yarn test` and you should see your test successfully pass. Of course this is just a simple example. To setup Jest with React is much harder especially with also typescript added to your project. You can read the [docs](https://jestjs.io/docs/en/getting-started) for more information on how to implement it.
