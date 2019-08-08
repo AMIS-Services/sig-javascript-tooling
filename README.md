@@ -249,11 +249,11 @@ Now run `yarn start` and make some changes to your react app. When you save your
 
 ### TSLint
 
-Most of the time we write code in collaboration. As a team we would like our code as readable, maintainable and free of functional errors as it can be. To keep it that way we use a linter. A linter is an utility tool that analyzes your code and emits warnings or errors based on the rules you've set.
+Most of the time we write code in collaboration. As a team we would like our code as readable, maintainable and free of functional errors as it can be. To keep it that way we use a linter. A linter is an utility tool that analyzes your code and emits warnings or errors based on the rules you've set. A linter helps you to fail early, which prevents bugs from popping up at later stages, for example in production!
 
-To setup linting for typescript we need to install two packages: `tslint` and `tslint-loader`. Use `-D` to install them as devDependencies. To make webpack check our typescript code we need to add to our `webpack.config.js` the following settings:
+To set up linting for typescript we need to install two packages: `tslint` and `tslint-loader`. Use `-D` to install them as devDependencies. To make webpack check our typescript code we need to add to our `webpack.config.js` the following settings:
 
-````javascript
+```javascript
   {
     test: /\.(ts|tsx)$/,
     enforce: 'pre',
@@ -275,41 +275,42 @@ To setup linting for typescript we need to install two packages: `tslint` and `t
     },
   },
   // other configuration
-````
+```
 
 In the root of our project create a file called `tslint.json` and add the following:
 
-````json
+```json
   {
     "rules": {
       "no-console": true
   }
-````
+```
 
-Add a console in a typescript file in the `src` folder. Run `yarn start` to apply the settings you've made. 
+Add a `console.log()` in one of the typescript files in the `src` folder. Run `yarn start` to apply the settings you've made.
 
 In your terminal an error should appear which says the following:
-````bash
+
+```bash
   ERROR in ./src/[fileName]
   Module Error (from ./node_modules/tslint-loader/index.js):
-  ERROR: (no-console) Path/To/File/4-Eslint-Prettier-EditorConfig/src/[fileName].tsx: 
+  ERROR: (no-console) Path/To/File/4-Eslint-Prettier-EditorConfig/src/[fileName].tsx:
       Calls to 'console.log' are not allowed.
-````
+```
 
 We've set a simple rule which says that we can't have console.logs or another console function in our code. This is just one of many. On the [TSLint](https://palantir.github.io/tslint/rules/) website you'll find all the rules you can set. Here below is a piece of configuration which contains a set of basic linting rules you can set for your typescript code. Read it, use it, try to understand what different kind of rules enforce. Linting rules are something personal and each individual prefers a different set. Try different rules in your project and find which one you like and which you don't. Some other suggestions to try are: no-any, triple-equals, no-duplicate-imports.
 
-````json
+```json
 {
   "defaultSeverity": "error",
-  "extends": [
-    "tslint:recommended",
-    "tslint-config-prettier"
-  ],
+  "extends": ["tslint:recommended"],
   "jsRules": {},
   "rules": {
-    "max-line-length": [true, {
-      "limit": 200
-    }],
+    "max-line-length": [
+      true,
+      {
+        "limit": 200
+      }
+    ],
     "radix": [false],
     "indent": [true, "spaces", 2],
     "quotemark": [true, "single", "avoid-escape", "avoid-template"],
@@ -325,43 +326,40 @@ We've set a simple rule which says that we can't have console.logs or another co
   },
   "rulesDirectory": []
 }
+```
 
-````
+To run tslint separately add a command called `tslint` to your `package.json` and set it to `tslint --config ./tslint.json \"./src/*.{ts,tsx}\"`. In the command line type `yarn tslint`. Any warning or error will be printed out the console or terminal.
 
-To run tslint separately add in your `package.json` a command called `tslint` and set it to  `tslint --config ./tslint.json \"./src/*.{ts,tsx}\"`. In the command line type `yarn tslint`. Any warning or error will be printed out the console or terminal.
+It is advisable to install an extension for your linter of choice in your VS Code, allowing you to see linting errors while writing your code.
 
 ### Prettier
 
-TSLint also takes care of your code formatting, but one thing that is lacks is formatting your code. It complains about it, but that's it. To let your IDE also format your code we need a dependency called Prettier. [Prettier](https://prettier.io/docs/en/index.html) is an oppionated, but extensible library which lets you format your code. You can configure Prettier to format your code based on some options you've set. But take a look in the tslint.json file. There are a lot of rules which also check for format inconsistencies. Those rules should be taken care of by Prettier.
+TSLint also takes care of your code quality, but one thing that is lacks is formatting your code. It complains about it, but that's it. To let your IDE also format your code we need a dependency called Prettier. [Prettier](https://prettier.io/docs/en/index.html) is an opionated, but extensible library which lets you format your code. You can configure Prettier to format your code based on some options you've set. But take a look in the tslint.json file. There are a lot of rules which also check for format inconsistencies. Those rules should be taken care of by Prettier.
 
 To let Prettier taken care of your formatting we need to install some dependecies. In you command line type `yarn add -D prettier tslint-plugin-prettier tslint-config-prettier`.
 
-* Prettier is the dependency to take care of your formatting. 
-* tslint-plugin-prettier lets Prettier run with TSLint. 
-* tslint-config-prettier disables all TSLint rules which are conflicting with the Prettier options. 
+- Prettier is the dependency to take care of your formatting.
+- tslint-plugin-prettier lets Prettier run with TSLint.
+- tslint-config-prettier disables all TSLint rules which are conflicting with the Prettier options.
 
-Here is a [full list of rules](https://unpkg.com/tslint-config-prettier@1.18.0/lib/index.json) which are getting disabled. 
+Here is a [full list of rules](https://unpkg.com/tslint-config-prettier@1.18.0/lib/index.json) which are getting disabled.
 
 In your `tslint.json` add `tslint-plugin-prettier` and `tslint-config-prettier` to the extends section. `tslint-config-prettier` must be placed last so it will disable al the rules which conflict with prettier. Under `rules` add the option prettier and set it to true. This will check your files based on the default settings of prettier. If you want to have you own options replace true by an array with in the first position true, and in the second position an object with some options you've set. Check [here](https://prettier.io/docs/en/options.html) for some options. The `tslint.json` will look something like this:
 
-````json
+```json
 {
   "defaultSeverity": "error",
-  "extends": [
-    "tslint:recommended",
-    "tslint-plugin-prettier",
-    "tslint-config-prettier"
-  ],
+  "extends": ["tslint:recommended", "tslint-plugin-prettier", "tslint-config-prettier"],
   "jsRules": {},
   "rules": {
     "prettier": [
       true,
       {
-          "trailingComma": "es5",
-          "tabWidth": 2,
-          "printWidth": 200,
-          "semi": false,
-          "singleQuote": true
+        "trailingComma": "es5",
+        "tabWidth": 2,
+        "printWidth": 200,
+        "semi": false,
+        "singleQuote": true
       }
     ],
     "radix": [false],
@@ -372,18 +370,17 @@ In your `tslint.json` add `tslint-plugin-prettier` and `tslint-config-prettier` 
     "object-literal-sort-keys": [false],
     "member-ordering": [false],
     "variable-name": [false],
-    "max-classes-per-file": false,
+    "max-classes-per-file": false
   },
   "rulesDirectory": []
 }
+```
 
-````
+NOTE!: There are some rules like singleQuote, no-consecutive-blank-lines, etc, which have been deleted. This is because the tslint-config-prettier disables all coflicting formatting rules. I replaced those rules with the Prettier equavalent.
 
- NOTE!: There are some rules like singleQuote, no-consecutive-blank-lines, etc, which have been deleted. This is because the tslint-config-prettier disables all coflicting formatting rules. I replaced those rules with the Prettier equavalent.
+Restart webpack. You should see some warnings or errors looking like this in your console:
 
-Restart webpack. You should see in your console some warnings or errors like this:
-
-````bash
+```bash
 WARNING in ./src/Restaurant.tsx
 Module Warning (from ./node_modules/tslint-loader/index.js):
 [1, 19]: Replace `'react'` with `"react"`
@@ -397,8 +394,11 @@ Module Warning (from ./node_modules/tslint-loader/index.js):
 [14, 1]: Replace `······` with `············`
 [15, 5]: Insert `····`
 [16, 1]: Insert `··`
-````
+```
+
 This means you have successfully add Prettier to your project, but wait how do we say to prettier it should also format your files based on your options. Add in your `package.json` a new command called `prettier` and set it to `"prettier --config ./package.json --write \"./src/*.tsx\""`. And add a property called `prettier`. This is an object and set it same the same configuration set under prettier in your tslint.json. You need just the options not the whole array!. This will run Prettier with the configurations in package.json and it will check and format all files in your src folder which have the .tsx or .ts extension. NOTE! We had to add the configuration to our package.json, because Prettier can't read your tslint.json file.
+
+You can also add the prettier plugin to VS Code, where it can automatically format on save and format on paste, if you enable it to do so in your settings.
 
 ### EditorConfig
 
@@ -406,7 +406,7 @@ We have linting, we have formatting, but wait! Each developer has its own favori
 
 The editorConfig can look like the following:
 
-````
+```txt
   # EditorConfig is awesome: https://EditorConfig.org
 
   # top-most EditorConfig file
@@ -440,13 +440,13 @@ The editorConfig can look like the following:
   [{package.json,.travis.yml}]
   indent_style = space
   indent_size = 2
-````
+```
 
 As you see you can set configurations per set of files you've specified. You can specify which files need a specific style by using the square brackets notation. Each new line with a square bracket notation identifies as a new set of rules only to apply to those files targeted that notation. It not necessary if you want to apply it to all files, but with different languages and precedents there will be settings only applicable to a specific set of files.
 
-````
+```txt
 [*.js] # This will target all javascript files.
-````
+```
 
 [Here](https://editorconfig-specification.readthedocs.io/en/latest) you can find a complete list of properties supported by the editorConfig.
 
@@ -456,23 +456,25 @@ In the root of your project create a file called `.editorconfig`. The first line
 Below this line type end_of_line=crlf. This setting says that all line-breaks will be carriage-return (CR) followed by a line-feed (LF). There are more, but I encourage you to try those out for yourself.
 
 ### PreCommit
-Individually running commands like tslint or prettier isn't efficient especially when you have to do it before each commit. To make it easier we going to use something called a git hook. Git hooks are operations which are fired when a certain actions happens. This can be commit your code, push your code or merge your code and much more. You can find more information on the [git website](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks). In this project we're going to use a hook called `pre-commit`. This is the first hook that fired up right before the moment you commit your code.
 
-To use it type `yarn add -D pre-commit`.
+Individually running commands like tslint or prettier isn't efficient especially when you have to do it before each commit. To make it easier we generally use something called a git hook. Git hooks are operations which are fired when a certain actions happens. This can be commit your code, push your code or merge your code and much more. You can find more information on the [git website](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks). One package you could use for this purpose is called `pre-commit`. The name pre-commit refers to the first hook that fired up right before the moment you commit your code.
 
-In your package.json add the following
+In order to use this package, you'd first have to install it using `yarn add -D pre-commit`.
 
-````json
+In your package.json you could add the following
+
+```json
 "pre-commit": [
   "prettier"
 ]
-````
+```
 
-Pre-commit is a dependency that lets you easily set up the commands you want to execute during the pre-commit. The pre-commit property is an array with one command `prettier`. The commands we created earlier.
+Pre-commit is a dependency that lets you easily set up the commands you want to execute during the pre-commit. The pre-commit property is an array with one command `prettier`, which is the command we created earlier.
 
-NOTE!: At this point when you try to commit your changes it is possible that the commit will fail because of the pre-commit. This is because your `package.json` and the `.git` folder need to be on the same level. This is something to think about when working with git hooks in your package.json.
+NOTE!: We will not actually implement a pre-commit hook in this workshop, because pre-commit does not work well when the `package.json` and `.git` files are not at the same level in the folder structure.
 
 ## Babel: production build
+
 During development we use a lot tools like sourcemaps, hot-reloading. These tools aren't necessary in production. In production we need to think more about file size, optimization of files to improve load times. Because of this we need to configure webpack for those different stages.
 
 To let webpack know we need a production ready distribution we need to update a command in our package.json. We'll add `build:production` command and set it to the following: `"webpack --mode production"`. When we run `yarn build:production` webpack is going to look for all the necessary packages needed in production and minify, uglify and optimize it. This will result in a much smaller bundle compare to the bundle created with `yarn build`.
@@ -480,32 +482,33 @@ To let webpack know we need a production ready distribution we need to update a 
 We use the default of setting to let you know what the production build is and what it produces. On the [webpack](https://webpack.js.org/guides/production/) website you'll find a little more information and a more verbose version of building a production ready applcation. Read this document and try to implement it.
 
 ## Bonus: testing (jest)
-As your applications grows it's getting harder and harder to regulary test if everything still works as it should. There are different kind of testing. You have regression tests, unit tests, E2E testing and many more. Right we just focusing on adding a testing utility to your project and add a simple test. For a more advanced setup to test even React via Babel or webpack I will refer to the docs of the testing tool. For this SIG we use a tool called Jest. Jest is maintained and used by Facebook as their main testing utility tool. 
 
-Install Jest by typing `yarn add -D jest` in your command line. 
+As your applications grows it's getting harder and harder to regulary test if everything still works as it should. There are different kind of testing. You have regression tests, unit tests, E2E testing and many more. Right we just focusing on adding a testing utility to your project and add a simple test. For a more advanced setup to test even React via Babel or webpack I will refer to the docs of the testing tool. For this SIG we use a tool called Jest. Jest is maintained and used by Facebook as their main testing utility tool.
+
+Install Jest by typing `yarn add -D jest` in your command line.
 
 In your `package.json` you add a command called `test` and set it to `jest`. Jest will then looking for all files which have the extension `.test.js` and execute the tests in it.
 
-In your root folder create two files `sum.js` and `sum.test.js`. 
+In your root folder create two files `sum.js` and `sum.test.js`.
 
 To `sum.js` add this piece of code
 
-````javascript
+```javascript
 function sum(a, b) {
-    return a + b;
+  return a + b;
 }
 
 module.exports = sum;
-````
+```
 
 And to sum.test.js:
 
-````javascript
+```javascript
 const sum = require('./src/sum');
 
-test("adds  1 + 2 equals to 3", () => {
-    expect(sum(1, 2)).toBe(3);
+test('adds  1 + 2 equals to 3', () => {
+  expect(sum(1, 2)).toBe(3);
 });
-````
+```
 
 Run `yarn test` and you should see your test successfully pass. Of course this is just a simple example. To setup Jest with React is much harder especially with also typescript added to your project. You can read the [docs](https://jestjs.io/docs/en/getting-started) for more information on how to implement it.

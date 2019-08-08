@@ -1,6 +1,8 @@
 import React from "react";
 
-const Restaurant = props => {
+
+
+const Restaurant = (props) => {
   return (
     <div>
       <h2>{props.name}</h2>

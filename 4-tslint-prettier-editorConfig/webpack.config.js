@@ -1,4 +1,4 @@
-const HtmlWebPackPlugin = require('html-webpack-plugin');
+const HtmlWebPackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   resolve: {
@@ -6,16 +6,6 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        test: /\.(ts|tsx)$/,
-        enforce: 'pre',
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: 'tslint-loader'
-          }
-        ]
-      },
       {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
@@ -40,4 +30,4 @@ module.exports = {
       filename: './index.html',
     }),
   ],
-};
+}
