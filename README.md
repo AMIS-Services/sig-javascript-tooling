@@ -479,7 +479,7 @@ During development we use a lot tools like sourcemaps, hot-reloading. These tool
 
 To let webpack know we need a production ready distribution we need to update a command in our package.json. We'll add `build:production` command and set it to the following: `"webpack --mode production"`. When we run `yarn build:production` webpack is going to look for all the necessary packages needed in production and minify, uglify and optimize it. This will result in a much smaller bundle compare to the bundle created with `yarn build`.
 
-We use the default of setting to let you know what the production build is and what it produces. On the [webpack](https://webpack.js.org/guides/production/) website you'll find a little more information and a more verbose version of building a production ready applcation. Read this document and try to implement it.
+We use the default of setting to let you know what the production build is and what it produces. On the [webpack](https://webpack.js.org/guides/production/) website you'll find a little more information and a more verbose version of building a production ready applcation. Read this document and try to implement it. Creating a production build is also a great moment to add in some [code splitting](https://webpack.js.org/guides/code-splitting/) which you can then lazy load, as supported by both [react](https://reactjs.org/docs/code-splitting.html) and [angular](https://angular.io/guide/lazy-loading-ngmodules).
 
 ## Bonus: testing (jest)
 
