@@ -10,7 +10,7 @@ In the first two script tags, we import React and ReactDOM, the two packages nee
 In the third script tag, we can write some javascript. Try adding something like
 
 ```javascript
-ReactDOM.render(React.createElement(React.createElement('h1', {}, 'AMIENS')), document.getElementById('root'));
+ReactDOM.render(React.createElement('h1', {}, 'AMIENS'), document.getElementById('root'));
 ```
 
 and open the HTML page in your browser. You should see the header on your webpage. Now try adding something a bit more complex:
@@ -27,7 +27,7 @@ While it was possible to write React without any tooling, you probably did not h
 ```bash
 yarn init -y
 yarn add react react-dom
-yarn add -D weback webpack-cli
+yarn add -D webpack webpack-cli
 ```
 
 This will add a basic `package.json` to your project, with the defined dependencies and devDependencies.
@@ -176,7 +176,7 @@ Switching a project over to typescript is rather easy. We need to do three thing
 - add a babel loader for typescript
 
 Go into `3-typescript-hotReload` and add
-the required packages with a `yarn add -D typescsript @types/react @types/react-dom ts-loader`.
+the required packages with a `yarn add -D typescript @types/react @types/react-dom ts-loader`.
 Then add a `tsconfig.json` file. Edit this file to contain the following snippet. You can find the meaning of the options in [the TypeScript docs](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html).
 
 ```json
@@ -194,7 +194,6 @@ Then add a `tsconfig.json` file. Edit this file to contain the following snippet
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
     "jsx": "react"
   },
   "include": ["src"]
@@ -280,10 +279,11 @@ To set up linting for typescript we need to install two packages: `tslint` and `
 In the root of our project create a file called `tslint.json` and add the following:
 
 ```json
-  {
-    "rules": {
-      "no-console": true
+{
+  "rules": {
+    "no-console": true
   }
+}
 ```
 
 Add a `console.log()` in one of the typescript files in the `src` folder. Run `yarn start` to apply the settings you've made.
